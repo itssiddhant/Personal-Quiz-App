@@ -27,20 +27,26 @@ class _QuestionsState extends State<Questions> {
     selectedAnswers.add(answer);
     if(selectedAnswers.length==questions.length){
       setState(() {
-        selectedAnswers=[];
+        // selectedAnswers=[];
         activeScreen = 'result';
       });
     }
   }
 
+  void restartQuiz() {
+    setState(() {
+      selectedAnswers = [];
+      activeScreen = 'questions-screen';
+    });
+  }
   @override
   Widget build(BuildContext context) {
     Widget screenWidget = StyledText(switchScreen);
-    if(activeScreen=='screen1'){
+    if(activeScreen=='screen2'){
       screenWidget=Qscreen(onSelectAnswer: inputAnswer);
     }
     if(activeScreen=='result'){
-      screenWidget= ResultScreen(chosenAnswers: selectedAnswers);
+      screenWidget= ResultScreen(chosenAnswers: selectedAnswers,onRestart: restartQuiz);
     }
     return MaterialApp(
       home: Scaffold(
